@@ -6,7 +6,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn clean package -DskipTests
+# ✅ Build & repackage để có fat jar Spring Boot
+RUN mvn clean package spring-boot:repackage -DskipTests
 
 # ------------------------------
 # Runtime stage: chạy JAR trên Java nhẹ
