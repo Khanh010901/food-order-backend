@@ -30,13 +30,13 @@ public class FoodService {
 
     public List<FoodDto> findAll() {
         List<FoodDto> foodDtos = foodRepository.findAll().stream()
-                .map(foodMapper::toDto)
+                .map(foodMapper::toDtoManual)
                 .collect(Collectors.toList());
         return foodDtos;
     }
 
     public FoodDto findById(long id) {
-        return foodMapper.toDto(foodRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find food with id " + id)));
+        return foodMapper.toDtoManual(foodRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find food with id " + id)));
     }
 
     public Food findByName(String name) {
@@ -68,7 +68,7 @@ public class FoodService {
         food.setQuantity(quantity);
         food.setCategory(category);
 
-        return foodMapper.toDto(foodRepository.save(food));
+        return foodMapper.toDtoManual(foodRepository.save(food));
     }
 
 
