@@ -37,7 +37,7 @@ public class OrderService {
              double total = 0.0;
             List<OrderItem> orderItems = new ArrayList<>();
 
-            for(OrderItemDto item :orderdto.getOrderItems()) {
+            for(OrderItemDto item :orderdto.getItems()) {
             OrderItem oi = new OrderItem();
             Food food = foodRepository.findById(item.getFoodId()).orElseThrow(()->new RuntimeException("Food not found"));
             oi.setFood(food);
