@@ -10,6 +10,5 @@ public class OrderDto {
     private Long userId;
     private String address;
     private String phone;
-    @JsonProperty("items")
-    private List<OrderItemDto> orderItems;
+    private List<OrderItemDto> items;
 }
