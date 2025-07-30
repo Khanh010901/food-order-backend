@@ -5,8 +5,10 @@ import com.example.foodorder.dto.OrderItemDto;
 import com.example.foodorder.model.Food;
 import com.example.foodorder.model.Order;
 import com.example.foodorder.model.OrderItem;
+import com.example.foodorder.model.User;
 import com.example.foodorder.repository.FoodRepository;
 import com.example.foodorder.repository.OrderRepository;
+import com.example.foodorder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,8 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private FoodRepository foodRepository;
-
+    @Autowired
+    private UserRepository userRepository;
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
@@ -31,7 +34,9 @@ public class OrderService {
         Order o = new Order();
             o.setCode(generateOrderCode());
             o.setOrderDate(LocalDateTime.now());
-            o.setUserId(orderdto.getUserId());
+            User user = userRepository.findByUsername(orderdto.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + orderdto.getUsername()));
+            o.setUserId(user.getId());
             o.setAddress(orderdto.getAddress());
             o.setPhone(orderdto.getPhone());
              double total = 0.0;
@@ -50,6 +55,10 @@ public class OrderService {
             o.setOrderItems(orderItems);
             o.setTotalPrice(total);
         return orderRepository.save(o);
+    }
+
+    public List<Order> getOrderByUsername(String username) {
+        return orderRepository.getByUserId(userRepository.findByUsername(username).get().getId());
     }
 
 

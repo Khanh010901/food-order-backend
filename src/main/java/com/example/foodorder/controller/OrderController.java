@@ -9,15 +9,22 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
         @Autowired
         private OrderService orderService;
 
-        @PostMapping
+        @PostMapping("/add")
         public ResponseEntity<Order> createOrder(@RequestBody OrderDto dto) {
         Order order = orderService.createOrder(dto);
         return ResponseEntity.ok(order);
+        }
+        @GetMapping("/{username}")
+        public ResponseEntity<?> getOrderByUsername(@PathVariable String username) {
+          return ResponseEntity.ok(orderService.getOrderByUsername(username));
         }
 }
