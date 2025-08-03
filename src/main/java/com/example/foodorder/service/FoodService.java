@@ -39,9 +39,6 @@ public class FoodService {
         return foodMapper.toDtoManual(foodRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find food with id " + id)));
     }
 
-    public Food findByName(String name) {
-        return null;
-    }
 
     public FoodDto Save(Long id, String name, double price, int quantity,MultipartFile imageFile, Long categoryId, boolean isUpdate) throws IOException {
 

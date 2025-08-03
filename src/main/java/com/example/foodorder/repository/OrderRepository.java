@@ -13,5 +13,10 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     @Query("SELECT o FROM Order o WHERE o.code = :code ")
     public Order getOrderByCode(@Param("code") String givenCode);
-    public List<Order> getByUserId(Long id);
+    @Query(value = "SELECT o.id, o.address,o.code,o.order_date AS OrderDate,o.phone,o.total_price TotalPrice, o.status, u.username, oi.price, oi.quantity,f.id AS foodId FROM orders o " +
+            "join order_item oi on o.id = oi.order_id " +
+            "join food f on f.id = oi.food_id " +
+            "join users u on u.id = o.user_id " +
+            "Where u.id= :id ",nativeQuery = true)
+    public List<Object[]> getOrdersByUserId(@Param("id") Long id);
 }

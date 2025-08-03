@@ -24,6 +24,7 @@ public class Order {
     private String phone;
     private LocalDateTime orderDate;
     private Double totalPrice;
+    private String status;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 }

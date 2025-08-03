@@ -24,7 +24,7 @@ public class OrderController {
         return ResponseEntity.ok(order);
         }
         @GetMapping("/{username}")
-        public ResponseEntity<?> getOrderByUsername(@PathVariable String username) {
+        public ResponseEntity<?> getOrdersByUsername(@PathVariable String username) {
           return ResponseEntity.ok(orderService.getOrderByUsername(username));
         }
 }
