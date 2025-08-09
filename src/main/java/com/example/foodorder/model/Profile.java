@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class Profile {
     private String firstName;
     private String lastName;
     private String image;
-    private LocalDate dob;
+    private LocalDateTime dob;
     private String phone;
     private String address;
     @OneToOne

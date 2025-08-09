@@ -3,6 +3,7 @@ package com.example.foodorder.controller;
 import com.example.foodorder.dto.LoginRequest;
 import com.example.foodorder.dto.LoginResponse;
 import com.example.foodorder.dto.RegisterRequest;
+import com.example.foodorder.model.Profile;
 import com.example.foodorder.model.Role;
 import com.example.foodorder.model.User;
 import com.example.foodorder.repository.RoleRepository;
@@ -70,6 +71,9 @@ public class AuthController {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy ROLE_USER"));
         user.setRoles(Collections.singleton(roleUser));
 
+        Profile profile = new Profile();
+        profile.setUser(user);
+        user.setProfile(profile);
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully");
     }
