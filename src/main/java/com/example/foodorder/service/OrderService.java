@@ -90,9 +90,29 @@ public class OrderService {
         return new ArrayList<>(orderMap.values());
     }
 
+    public List<OrderDtoResponse> getAllOrders() {
+            List<Order> orders = orderRepository.findAll();
+            Map<Long, OrderDtoResponse> orderMap = new LinkedHashMap<>();
+            for(Order order : orders) {
+                OrderDtoResponse orderDtoResponse = new OrderDtoResponse();
+                orderDtoResponse.setOrderId(order.getId());
+                orderDtoResponse.setAddress(order.getAddress());
+                orderDtoResponse.setCode(order.getCode());
+                orderDtoResponse.setOrderDate(order.getOrderDate());
+                orderDtoResponse.setPhone(order.getPhone());
+                orderDtoResponse.setTotalPrice(order.getTotalPrice());
+                orderDtoResponse.setStatus(order.getStatus());
+                orderDtoResponse.setUsername(userRepository.findById(order.getUserId()).get().getUsername());
+                orderMap.put(order.getId(), orderDtoResponse);
+
+            }
+
+        return new ArrayList<>(orderMap.values());
+    }
 
     private String generateOrderCode() {
         return "OD" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
+
 
 }
