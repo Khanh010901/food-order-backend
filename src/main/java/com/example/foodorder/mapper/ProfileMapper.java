@@ -18,7 +18,9 @@ public class ProfileMapper {
         profileDto.setImage(profile.getImage());
         profileDto.setFirstName(profile.getFirstName());
         profileDto.setLastName(profile.getLastName());
-
+        String fName = (profile.getFirstName()!= null)?profile.getFirstName() : "Khanh";
+        String lName = (profile.getLastName()!= null)?profile.getLastName() : "DZ";
+        profileDto.setUsername(lName + " " + fName);
 
         return profileDto;
     }

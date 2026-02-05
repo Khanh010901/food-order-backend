@@ -34,4 +34,9 @@ public class OrderController {
         public ResponseEntity<?> getOrdersByUsername(@PathVariable String username) {
           return ResponseEntity.ok(orderService.getOrderByUsername(username));
         }
+
+        @PostMapping("/status/update")
+        public ResponseEntity<?> updateOrderStatus(@RequestBody OrderDto dto) {
+            return ResponseEntity.ok(orderService.updateStatus(dto));
+        }
 }

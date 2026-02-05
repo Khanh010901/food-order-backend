@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/auth/**").permitAll()  // Cho phép truy cập register, login
                                 .requestMatchers(HttpMethod.GET, "/api/foods/**").permitAll()  // (tuỳ chọn) cho phép truy cập GET món ăn
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                         )
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

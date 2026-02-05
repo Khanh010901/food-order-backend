@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ProfileRepository extends JpaRepository<Profile,Long> {
 
     public Profile findByUserId(Long userId);
+    @Query(value ="SELECT ",nativeQuery = true)
+    public Profile findByUserName(String userName);
 }

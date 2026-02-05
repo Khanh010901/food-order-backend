@@ -11,6 +11,7 @@ import com.example.foodorder.repository.OrderRepository;
 import com.example.foodorder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -28,6 +29,9 @@ public class OrderService {
     private FoodMapper foodMapper;
     public List<Order> getOrders() {
         return orderRepository.findAll();
+    }
+    public Order findById(long id) {
+        return (Order)orderRepository.findById(id).get();
     }
 
     public Order createOrder(OrderDto orderdto) {
@@ -114,5 +118,14 @@ public class OrderService {
         return "OD" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 
+    @Transactional
+    public Order  updateStatus(OrderDto dto) {
+        int updated = orderRepository.orderStatusUpdate(dto.getId(), dto.getStatus());
+        if (updated == 0) {
+            throw new RuntimeException("Order not found");
+        }
 
+        return orderRepository.findById(dto.getId())
+                .orElseThrow(() -> new RuntimeException("Order not found after update"));
+    }
 }
